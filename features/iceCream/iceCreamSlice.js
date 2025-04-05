@@ -1,9 +1,11 @@
-const createSlice = require("@reduxjs/toolkit").createSlice;
+const { createSlice } = require("@reduxjs/toolkit");
+
 const initialState = {
   numOfIceCreams: 20,
 };
+
 const iceCreamSlice = createSlice({
-  name: "cake",
+  name: "iceCream", // Also fixed the name from "cake" to "iceCream"
   initialState,
   reducers: {
     ordered: (state) => {
@@ -13,6 +15,14 @@ const iceCreamSlice = createSlice({
       state.numOfIceCreams += action.payload;
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase("cake/ordered", (state) => {
+      state.numOfIceCreams--;
+    });
+  },
 });
-module.exports = iceCreamSlice.reducer;
-module.exports.iceCreamActions = iceCreamSlice.actions;
+
+module.exports = {
+  reducer: iceCreamSlice.reducer,
+  iceCreamActions: iceCreamSlice.actions,
+};
